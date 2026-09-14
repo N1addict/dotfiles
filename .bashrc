@@ -9,4 +9,5 @@ HISTSIZE=10000
 HISTFILESIZE=20000
 
 # Immediately write commands to disk after each execution
-PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
+PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
