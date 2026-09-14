@@ -120,11 +120,22 @@ fi
 # ==============================================================================
 # CUSTOM HISTORY SETTINGS (N1addict)
 # ==============================================================================
-shopt -s histappend
-shopt -s cmdhist
-
-HISTSIZE=10000
-HISTFILESIZE=20000
 
 # Immediately write commands to disk after execution while keeping existing prompt hooks
 PROMPT_COMMAND="history -a; ${PROMPT_COMMAND:-}"
+
+# Store history inside the persistent /workspaces volume
+if [ -d "/workspaces" ]; then
+    mkdir -p /workspaces/.persistent_history
+    export HISTFILE="/workspaces/.persistent_history/.bash_history"
+fi
+
+# Standard history persistence flags
+shopt -s histappend
+shopt -s cmdhist
+HISTSIZE=10000
+HISTFILESIZE=20000
+
+# Write to history file immediately after every command
+PROMPT_COMMAND="history -a; ${PROMPT_COMMAND:-}"
+
